@@ -11,6 +11,10 @@ feh --bg-scale /home/dino/Japanese*.jpg
 
 xrdb -merge ~/.Xdefaults
 
+# To use custom fonts
+xset +fp /usr/share/fonts/local
+xset fp rehash
+
 # Only conky without dzen
 #conky | while read -r; do xsetroot -name "$REPLY"; done &
 
