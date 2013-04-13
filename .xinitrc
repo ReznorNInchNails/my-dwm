@@ -4,29 +4,20 @@
 #
 # Executed by startx (run your window manager from here)
 
-#if [ -d /etc/X11/xinit/xinitrc.d ]; then
-#  for f in /etc/X11/xinit/xinitrc.d/*; do
-#    [ -x "$f" ] && . "$f"
-#  done
-#  unset f
-#fi
+# Set your wallpaper using feh
 feh --bg-scale /home/dino/Japanese*.jpg
-# exec gnome-session
-# exec startkde
-# exec startxfce4
-# ...or the Window Manager of your choice
+
+# Merge your .Xdefaults
 
 xrdb -merge ~/.Xdefaults
-#exec --no-startup-id nm-applet
-#exec --no-startup-id volwheel
-#exec dbus-launch i3
 
-#conky | dzen2 -x '500' -e '' -fg '#dcdcdc' -bg '#3f3f3f' \-w '650' -ta r -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -p ) &amp;
-if [ -x /usr/bin/nm-applet ] ; then
-   nm-applet --sm-disable &
-fi
-conky | while read -r; do xsetroot -name "$REPLY"; done &
-#conky | dzen2 -fg '#dcdcdc' -bg '#3f3f3f' -ta r -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' &
-#exec dzen2 &
-#~/.dwm-statusbar.bash &
+# Only conky without dzen
+#conky | while read -r; do xsetroot -name "$REPLY"; done &
+
+# Conky with dzen, must use if you want xbm icons
+
+(sleep 15s && conky | dzen2 -x '600' -e '' -fg '#121212' -bg '#dcdccc' -ta r -fn '-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*' -p) 
+
+# Launch your configured dwm from dedicated dir
+
 exec dbus-launch /usr/local/bin/dwm
