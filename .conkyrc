@@ -6,5 +6,6 @@ total_run_times 0
 use_spacer none
 
 TEXT
- ${cpu cpu1}% / ${cpu cpu2}%  ${loadavg 1} ${loadavg 2 3} :: ${acpitemp}c :: $memperc% ($mem) :: ${downspeed eth0}K/s ${upspeed eth0}K/s :: ${time %a %b %d %I:%M%P}
+^i(/home/dino/xbm/cpu.xbm) ${cpu cpu1}% / ${cpu cpu2}% ${loadavg 1} ${loadavg 2 3} ^i(/home/dino/xbm/temp.xbm) ${acpitemp}c ^i(/home/dino/xbm/mem.xbm) $memperc% ($mem) ^i(/home/dino/xbm/network.xbm) ${downspeed eth0}K/s ${upspeed eth0}K/s ^i(/home/dino/xbm/clock.xbm) ${time %a %b %d %I:%M%P}
+
 
