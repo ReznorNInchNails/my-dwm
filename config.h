@@ -1,12 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
+//static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
+static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*";
 #define NUMCOLORS 9 
 static const char colors[NUMCOLORS][ColLast][9] = {
 // border foreground background
-{ "#212121", "#696969", "#121212" }, // 0 = normal
-{ "#696969", "#899CA1", "#121212" }, // 1 = selected
+{ "#212121", "#dcdccc", "#121212" }, // 0 = normal
+{ "#696969", "#f6784f", "#121212" }, // 1 = selected
 { "#212121", "#CF4F88", "#121212" }, // 2 = red
 { "#212121", "#53A6A6", "#121212" }, // 3 = green
 { "#212121", "#914E89", "#121212" }, // 4 = yellow
@@ -15,17 +16,17 @@ static const char colors[NUMCOLORS][ColLast][9] = {
 { "#212121", "#7E62B3", "#121212" }, // 7 = magenta
 { "#212121", "#899CA1", "#121212" }, // 8 = grey
 };
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
-
 /* tagging */
-static const char *tags[] = { "home", "www", "work", "media", "terminal", "irssi" };
+
+static const char *tags[] = { "home", "www", "work", "term", "media", "irssi" };
 
 static const Rule rules[] = {
-  /* class      instance    title       tags mask     isfloating   monitor */
+	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
 };
@@ -56,6 +57,12 @@ static const Layout layouts[] = {
 /* commands */
 static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]  = { "uxterm", NULL };
+static const char *shutdowncmd[] = { "sudo", "shutdown", "-h", "now", NULL };
+static const char *rebootcmd[] = { "sudo", "reboot", NULL };
+static const char *volupcmd[] = { "volup", NULL };
+static const char *voldowncmd[] = { "voldown", NULL };
+static const char *thunarcmd[] = { "thunar", NULL };
+static const char *firefoxcmd[] = { "firefox-bin", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -66,13 +73,13 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_p,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_g,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_w,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -92,7 +99,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY,			XK_s,	   spawn,	   {.v = shutdowncmd } },
+	{ MODKEY,			XK_r,	   spawn,	   {.v = rebootcmd } },
+	{ MODKEY,			XK_Up,     spawn,	   {.v = volupcmd } },
+	{ MODKEY,			XK_Down,   spawn,	   {.v = voldowncmd } },
+	{ MODKEY, 			XK_h,	   spawn,	   {.v = thunarcmd } },
+	{ MODKEY,			XK_f,      spawn,          {.v = firefoxcmd } },
+
 };
+
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
